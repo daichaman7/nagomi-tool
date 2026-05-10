@@ -176,14 +176,119 @@ extra_info = ""
 # ==================================================
 # 8. 内見日時
 # ==================================================
-if status in [
-    "4. 内見日時の打診（日程の提案・相談）",
-    "5. 内見日時の確定（決定した日時の確認）"
-]:
+if status == "4. 内見日時の打診（日程の提案・相談）":
 
     st.write("---")
 
-    st.subheader("内見日時")
+    st.subheader("内見候補日時")
+
+    st.write("候補日時を最大3つまで選択できます。不要な候補はチェックを外してください。")
+
+    candidate_texts = []
+
+    use_candidate_1 = st.checkbox(
+        "候補1を使用する",
+        value=True,
+        key="use_candidate_1"
+    )
+
+    if use_candidate_1:
+
+        col_date_1, col_time_1 = st.columns(2)
+
+        with col_date_1:
+
+            d1 = st.date_input(
+                "候補1 日付：",
+                datetime.now(),
+                key="candidate_date_1"
+            )
+
+        with col_time_1:
+
+            t1 = st.time_input(
+                "候補1 開始時間：",
+                time(10, 0),
+                key="candidate_time_1"
+            )
+
+        candidate_texts.append(
+            f"候補1：{d1.strftime('%m月%d日')} {t1.strftime('%H時%M分')}〜"
+        )
+
+    use_candidate_2 = st.checkbox(
+        "候補2を使用する",
+        value=False,
+        key="use_candidate_2"
+    )
+
+    if use_candidate_2:
+
+        col_date_2, col_time_2 = st.columns(2)
+
+        with col_date_2:
+
+            d2 = st.date_input(
+                "候補2 日付：",
+                datetime.now(),
+                key="candidate_date_2"
+            )
+
+        with col_time_2:
+
+            t2 = st.time_input(
+                "候補2 開始時間：",
+                time(13, 0),
+                key="candidate_time_2"
+            )
+
+        candidate_texts.append(
+            f"候補2：{d2.strftime('%m月%d日')} {t2.strftime('%H時%M分')}〜"
+        )
+
+    use_candidate_3 = st.checkbox(
+        "候補3を使用する",
+        value=False,
+        key="use_candidate_3"
+    )
+
+    if use_candidate_3:
+
+        col_date_3, col_time_3 = st.columns(2)
+
+        with col_date_3:
+
+            d3 = st.date_input(
+                "候補3 日付：",
+                datetime.now(),
+                key="candidate_date_3"
+            )
+
+        with col_time_3:
+
+            t3 = st.time_input(
+                "候補3 開始時間：",
+                time(15, 0),
+                key="candidate_time_3"
+            )
+
+        candidate_texts.append(
+            f"候補3：{d3.strftime('%m月%d日')} {t3.strftime('%H時%M分')}〜"
+        )
+
+    if candidate_texts:
+
+        extra_info = "\n【候補日時】\n" + "\n".join(candidate_texts)
+
+    else:
+
+        extra_info = "\n【候補日時】\n候補日時は未選択です。"
+
+elif status == "5. 内見日時の確定（決定した日時の確認）":
+
+    st.write("---")
+
+    st.subheader("確定した内見日時")
 
     col_date, col_time = st.columns(2)
 
@@ -201,10 +306,8 @@ if status in [
             time(10, 0)
         )
 
-    label = "候補日時" if "打診" in status else "確定日時"
-
     extra_info = f"""
-【{label}】
+【確定日時】
 {d.strftime('%m月%d日')} {t.strftime('%H時%M分')}〜
 """
 
@@ -441,7 +544,15 @@ if st.button("返信案を作成する"):
 
                     scenario_instruction = f"""
 内覧日時の候補として、
-以下の日時を提示してください。
+以下の候補日時を提示してください。
+
+候補日時が複数ある場合は、
+「いくつか候補日時を挙げさせていただきます」
+という自然な文章にしてください。
+
+候補日時が1つだけの場合は、
+「下記日時はいかがでしょうか」
+という自然な文章にしてください。
 
 お客様の都合が合わない場合は、
 別日相談可能である旨も
