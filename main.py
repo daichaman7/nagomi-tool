@@ -8,7 +8,7 @@ from datetime import datetime, time
 try:
     API_KEY = st.secrets["GEMINI_API_KEY"]
 except Exception:
-    API_KEY = "AIzaSyBsl-Y2O7olwK0UCfr7h8wAKh0ORtNNQ5A"
+    API_KEY = "AIzaSyC2XSoOAXv1_rUVHCbiYqHzWfG9CJ_xaI8"
 
 STAFF_USERS = {
     "matsushita": {
@@ -652,7 +652,7 @@ if st.button("返信案を作成する"):
 """
 
                     response = client.models.generate_content(
-                        model="gemini-1.5-flash-002",
+                        model="gemini-2.5-flash-lite",
                         contents=proofreading_prompt
                     )
 
@@ -1290,7 +1290,7 @@ if st.button("返信案を作成する"):
 """
 
                     response = client.models.generate_content(
-                        model="gemini-1.5-flash-002",
+                        model="gemini-2.5-flash-lite",
                         contents=prompt
                     )
 
