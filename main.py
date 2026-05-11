@@ -652,7 +652,7 @@ if st.button("返信案を作成する"):
 """
 
                     response = client.models.generate_content(
-                        model="gemini-2.5-flash-lite",
+                        model="gemini-1.5-flash-002",
                         contents=proofreading_prompt
                     )
 
