@@ -8,8 +8,7 @@ from datetime import datetime, time
 try:
     API_KEY = st.secrets["GEMINI_API_KEY"]
 except Exception:
-    API_KEY = "AIzaSyC2XSoOAXv1_rUVHCbiYqHzWfG9CJ_xaI8"
-
+    API_KEY = ""
 STAFF_USERS = {
     "matsushita": {
         "password": "5918021",
